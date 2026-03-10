@@ -42,6 +42,11 @@ export default function BentoGrid() {
           const rotations = ["rotate-[-3deg]", "rotate-[2deg]", "rotate-[-1deg]", "rotate-[3deg]", "rotate-[0deg]", "rotate-[-2deg]"];
           const rotation = rotations[i % rotations.length];
           
+          let objectPosition = "object-center";
+          if (num === 15 || num === 16 || num === 18 || num === 19) {
+            objectPosition = "object-top";
+          }
+
           return (
             <motion.div
               initial={{ y: 80, opacity: 0 }}
@@ -56,7 +61,7 @@ export default function BentoGrid() {
                   src={`/Bento Cards/${num}.jpg`}
                   alt={`Memory ${num}`}
                   fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 grayscale hover:grayscale-0"
+                  className={`object-cover ${objectPosition} transition-transform duration-700 ease-out group-hover:scale-110 grayscale hover:grayscale-0`}
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
               </div>
