@@ -21,7 +21,7 @@ export default function Home() {
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-900 text-white cursor-pointer"
             onClick={() => setEntered(true)}
           >
-            <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: "url('/sequence/ezgif-frame-001.png')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(10px)" }} />
+            <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: "url('/sequence/ezgif-frame-001.webp')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(10px)" }} />
             <div className="text-center relative z-10 px-4">
               <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl mb-8 font-medium tracking-wide drop-shadow-lg">
                 For Jenni

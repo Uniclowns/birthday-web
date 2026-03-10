@@ -24,9 +24,9 @@ export default function SequenceScroll() {
 
     for (let i = 1; i <= totalFrames; i++) {
         const img = new Image();
-        // Assuming sequence format: ezgif-frame-001.png
+        // Assuming sequence format: ezgif-frame-001.webp
         const paddedIndex = i.toString().padStart(3, '0');
-        img.src = `/sequence/ezgif-frame-${paddedIndex}.png`;
+        img.src = `/sequence/ezgif-frame-${paddedIndex}.webp`;
         
         img.onload = () => {
           loadedCount++;

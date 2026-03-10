@@ -35,7 +35,7 @@ export default function Navbar() {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed top-0 left-0 w-full bg-[#0f172a] z-50 flex flex-col justify-center items-center overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: "url('/sequence/ezgif-frame-001.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: "url('/sequence/ezgif-frame-001.webp')", backgroundSize: "cover", backgroundPosition: "center" }} />
             
             <div className="flex flex-col gap-6 md:gap-10 text-center relative z-10">
               {links.map((link, i) => (
