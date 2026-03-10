@@ -28,24 +28,10 @@ export default function BentoGrid() {
         </motion.p>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10 auto-rows-[280px] sm:auto-rows-[250px] md:auto-rows-[350px]">
+      <div className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 gap-6 md:gap-10 space-y-6 md:space-y-10">
         {images.map((num, i) => {
-          const isLarge = i === 0 || i === 7 || i === 14;
-          const isWide = i === 3 || i === 10 || i === 18;
-          const isTall = i === 5 || i === 12;
-          
-          let spanClass = "col-span-1 row-span-1";
-          if (isLarge) spanClass = "sm:col-span-2 sm:row-span-2";
-          else if (isWide) spanClass = "sm:col-span-2 col-span-1 row-span-1";
-          else if (isTall) spanClass = "row-span-2 col-span-1";
-          
           const rotations = ["rotate-[-3deg]", "rotate-[2deg]", "rotate-[-1deg]", "rotate-[3deg]", "rotate-[0deg]", "rotate-[-2deg]"];
           const rotation = rotations[i % rotations.length];
-          
-          let objectPosition = "object-center";
-          if (num === 15 || num === 16 || num === 18 || num === 19) {
-            objectPosition = "object-top";
-          }
 
           return (
             <motion.div
@@ -54,15 +40,17 @@ export default function BentoGrid() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7, delay: (i % 4) * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               key={num} 
-              className={`polaroid ${spanClass} ${rotation} relative w-full h-full cursor-pointer group`}
+              className={`polaroid ${rotation} relative w-full inline-block cursor-pointer group`}
             >
-              <div className="relative w-full h-full overflow-hidden bg-slate-200">
+              {/* For masonry, we let the image define the height via intrinsic aspect ratio instead of absolute fill */}
+              <div className="relative w-full overflow-hidden bg-slate-200">
                 <Image 
                   src={`/Bento Cards/${num}.jpg`}
                   alt={`Memory ${num}`}
-                  fill
-                  className={`object-cover ${objectPosition} transition-transform duration-700 ease-out group-hover:scale-110 grayscale hover:grayscale-0`}
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  width={600}
+                  height={800}
+                  className="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105 grayscale hover:grayscale-0"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             </motion.div>
