@@ -1,65 +1,106 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import SequenceScroll from "@/components/SequenceScroll";
+import BentoGrid from "@/components/BentoGrid";
+import Navbar from "@/components/Navbar";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export default function Home() {
+  const [entered, setEntered] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="bg-slate-50 min-h-screen">
+      <AnimatePresence>
+        {!entered && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-900 text-white cursor-pointer"
+            onClick={() => setEntered(true)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: "url('/sequence/ezgif-frame-001.png')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(10px)" }} />
+            <div className="text-center relative z-10 px-4">
+              <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl mb-8 font-medium tracking-wide drop-shadow-lg">
+                For Jenni
+              </h1>
+              <motion.div 
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="font-sans text-xs md:text-sm tracking-[0.4em] uppercase text-white inline-flex flex-col items-center gap-2"
+              >
+                <span>Tap to begin</span>
+                <span className="w-px h-12 bg-white/50 mt-4 block" />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {entered && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }}>
+          <Navbar />
+          <AudioPlayer isPlaying={true} />
+          
+          <SequenceScroll />
+          
+          {/* Content below the sequence scroll with overlap */}
+          <div className="relative z-10 bg-white -mt-[100vh] w-full isolate rounded-t-[40px] md:rounded-t-[80px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] pt-12">
+            
+            <BentoGrid />
+            
+            {/* Stats Section with simple counter effect using framer motion */}
+            <section className="py-24 px-6 md:px-12 bg-slate-50 border-t border-slate-100 text-center">
+              <motion.h3 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="font-serif text-3xl md:text-5xl text-slate-900 mb-12 md:mb-16 italic"
+              >
+                Every moment matters
+              </motion.h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 max-w-4xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <div className="text-5xl md:text-7xl font-serif text-[#0f172a] mb-2 md:mb-4">365+</div>
+                  <div className="text-[10px] md:text-sm font-sans tracking-widest text-slate-500 uppercase">Days Together</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <div className="text-5xl md:text-7xl font-serif text-[#0f172a] mb-2 md:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-500">∞</div>
+                  <div className="text-[10px] md:text-sm font-sans tracking-widest text-slate-500 uppercase">Memories</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className="text-5xl md:text-7xl font-serif text-[#0f172a] mb-2 md:mb-4">1</div>
+                  <div className="text-[10px] md:text-sm font-sans tracking-widest text-slate-500 uppercase">Love</div>
+                </motion.div>
+              </div>
+            </section>
+            
+            <footer className="py-16 text-center bg-[#0a0a0a] text-white">
+              <p className="font-serif text-2xl md:text-3xl italic mb-6 text-slate-300">"Forever & Always"</p>
+              <div className="w-12 h-px bg-slate-700 mx-auto mb-6" />
+              <p className="font-sans text-[10px] text-slate-500 tracking-[0.2em] uppercase">Made with love for Jenni</p>
+            </footer>
+          </div>
+        </motion.div>
+      )}
+    </main>
   );
 }
